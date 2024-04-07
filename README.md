@@ -4,6 +4,8 @@
 Renpho scale weight/health data extractor
 
 ## Description
+I've talked about making the application in my blog post [here](https://medium.com/@dpgregson/taking-back-my-own-data-e195a8d5726b)
+
 This app was created as a means of allowing me to take a cropped picture of the data section of a renpho health screen and submit it to a telegram bot and have it eventually wind up in InfluxDB/Grafana. It also allows the user to make some simple corrections by entering some additional data if needed into the chat window and utilising y/n to confirm whether they wish to submit their data. 
 
 Example:
