@@ -1,6 +1,6 @@
-FROM python:3.12-slim-bullseye
+FROM repo.kibblator.co.uk/dg-python-tesseract-ocr:3.12-slim-bullseye
 
-COPY . /renpho-extractor/
-RUN pip install -r ./renpho-extractor/requirements.txt && mkdir -p ./renpho-extractor/images
+COPY . /dg.weighttool/
+RUN pip install -r ./dg.weighttool/requirements.txt && mkdir -p ./dg.weighttool/images
 
-CMD ["python", "-u", "./renpho-extractor/main.py"]
+CMD ["python", "-u", "./dg.weighttool/main.py"]

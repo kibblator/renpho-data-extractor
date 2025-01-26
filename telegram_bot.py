@@ -38,7 +38,6 @@ class TelegramBot:
         requests.post(f"{self.base_url}sendMessage", json=payload)
 
     def get_updates(self):
-        print('Getting update')
         response = requests.get(self.base_url + f"getUpdates?offset={self.offset}")
         data = response.json()
         if 'result' in data and data['result']:

@@ -3,3 +3,5 @@ pytesseract
 requests
 influxdb-client[ciso]
 injector
+garth
+withings-sync

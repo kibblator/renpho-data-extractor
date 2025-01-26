@@ -1,26 +1,43 @@
 import os
-import json
 from injector import inject, singleton
 from telegram_bot import TelegramBot
-from push_data import store_data
+from influx_repository import store_influx_data
 from data_corrections import DataCorrectionService
 from weight_data_repository import WeightDataRepository
 from image_processing import ImageProcessorService
+from garmin_client import Garmin
+
+garmin_email = os.environ['GARMIN_EMAIL']
+garmin_password = os.environ['GARMIN_PASSWORD']
+tokenstore = './.garminconnect'
 
 class UpdateOrchestrator:
     @inject
     @singleton
     def __init__(self, bot: TelegramBot, correction_service: DataCorrectionService, 
-                 weight_data_repository: WeightDataRepository, image_processor_service: ImageProcessorService):
+                 weight_data_repository: WeightDataRepository, image_processor_service: ImageProcessorService,
+                 garmin_client: Garmin):
         self.bot = bot
         self.correction_service = correction_service
         self.weight_data_repository = weight_data_repository
         self.image_processor_service = image_processor_service
         current_file_directory = os.path.dirname(os.path.abspath(__file__))
         self.images_directory = f"{current_file_directory}/images/"
+        self.garmin_client = garmin_client
+
+        try:
+            garmin_client.login(tokenstore)
+        except:
+            garmin = Garmin(
+                email=garmin_email, password=garmin_password, is_cn=False
+            )
+            garmin.login()
+            garmin.garth.dump(tokenstore)
 
     def send_weight_data(self, data):
-        store_data(data)
+        store_influx_data(data)
+        self.garmin_client.add_body_composition(None, data['Weight'], data['BodyFat'], data['BodyWater'], data['VisceralFat'], data['BoneMass'], data['SkeletalMuscle'], data['BMR'], None, None, data['MetabolicAge'], None, data['BMI'])
+
         self.bot.send_message("Data sent successfully")
         self.weight_data_repository.remove_weight_data()
 
