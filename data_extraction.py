@@ -3,7 +3,7 @@ import re
 def extract_properties(text):
     patterns = {
         "Weight": r"(\d+(\.\d+)?)(?:kg)?Weight",
-        "FatFreeBodyWeight": r"(\d+(\.\d+)?)(?:kg)?Fat(?:-)?freeBodyWeight",
+        "FatFreeMass": r"(\d+(\.\d+)?)(?:kg)?Fat(?:-)?FreeMass",
         "BodyWater": r"(\d+(\.\d+)?)%BodyWater",
         "BoneMass": r"(\d+(\.\d+)?)(?:kg)?BoneMass",
         "MetabolicAge": r"(\d+(\.\d+)?)MetabolicAge",
@@ -20,7 +20,7 @@ def extract_properties(text):
     properties = {}
 
     for prop, pattern in patterns.items():
-        match = re.search(pattern, text)
+        match = re.search(pattern, text, re.IGNORECASE)
         if match:
             properties[prop] = float(match.group(1))
         else:

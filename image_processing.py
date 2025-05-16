@@ -54,7 +54,7 @@ class ImageProcessorService:
 
         json_data = {
             "Weight": properties.get("Weight"),
-            "FatFreeBodyWeight": properties.get("FatFreeBodyWeight"),
+            "FatFreeMass": properties.get("FatFreeMass"),
             "BodyWater": properties.get("BodyWater"),
             "BoneMass": properties.get("BoneMass"),
             "MetabolicAge": properties.get("MetabolicAge"),
