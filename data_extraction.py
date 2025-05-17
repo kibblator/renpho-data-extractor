@@ -3,7 +3,7 @@ import re
 def extract_properties(text):
     patterns = {
         "Weight": r"(\d+(\.\d+)?)(?:kg)?Weight",
-        "FatFreeMass": r"(\d+(\.\d+)?)(?:kg)?Fat(?:-)?FreeMass",
+        "FatFreeBodyWeight": r"(\d+(\.\d+)?)(?:kg)?Fat(?:-)?FreeMass",
         "BodyWater": r"(\d+(\.\d+)?)%BodyWater",
         "BoneMass": r"(\d+(\.\d+)?)(?:kg)?BoneMass",
         "MetabolicAge": r"(\d+(\.\d+)?)MetabolicAge",
